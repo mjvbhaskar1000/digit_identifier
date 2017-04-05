@@ -51,7 +51,9 @@ def trainNN (x):
 	prediction = neural_network_model(x)
 	#this function further builds the graph by adding the required loss operations(ops).
 	#this averages the cross entropy values across the batch dimension (the first dimension) as the total loss.
-	cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(prediction,y))
+	cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(prediction,y))  #syntax changed in tf 1.0
+	#uncomment this line for tf 1.0
+	#cost = tf.reduce_mean( tf.nn.softmax_cross_entropy_with_logits(logits=prediction, labels=y)) ##### for tf 1.0
 	#This function adds the operations needed to minimize the loss
 	#this uses adams optimizer
 	optimizer = tf.train.AdamOptimizer().minimize(cost) #learning_rate = 0.001
@@ -61,7 +63,9 @@ def trainNN (x):
 	#this runs the model and gives the output.
 	with tf.Session() as sess:
 		#initializing the variables.
-		sess.run(tf.initialize_all_variables())
+		sess.run(tf.initialize_all_variables()) #syntax changed in tf 1.0
+		#uncomment this line for tf 1.0
+		#sess.run(tf.global_variables_initializer()) ##### for tf 1.0
 		#Training loop.
 		for epoch in range(epochs):
 			epoch_loss = 0
