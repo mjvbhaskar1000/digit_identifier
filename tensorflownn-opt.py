@@ -62,12 +62,15 @@ def neural_network_model(data):
 
 def trainNN (x):
 	prediction = neural_network_model(x)
-	cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(prediction,y))
+	cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(prediction,y))  #syntax changed in tf 1.0
+	#uncomment this line for tf 1.0
+	#cost = tf.reduce_mean( tf.nn.softmax_cross_entropy_with_logits(logits=prediction, labels=y)) ##### for tf > 1.0
 	optimizer = tf.train.AdamOptimizer().minimize(cost) #learning_rate = 0.001
 	epochs = 30
 	with tf.Session() as sess:
-		sess.run(tf.initialize_all_variables())
-	
+		sess.run(tf.initialize_all_variables()) #syntax changed in tf 1.0
+		#uncomment this line for tf 1.0
+		#sess.run(tf.global_variables_initializer()) ##### for tf > 1.0
 		for epoch in range(epochs):
 			epoch_loss = 0
 			for _ in range(int(mnist.train.num_examples/batch_size)):
